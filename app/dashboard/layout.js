@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../globals.css";
 // import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
@@ -15,7 +15,14 @@ export default function RootLayout({ children }) {
   return (
     <html data-theme="light" lang="en">
       <body className="flex flex-row">
-        <Provider>{children}</Provider>
+        <Provider>
+          <Navbar />
+
+          <div className="fixed">
+            <Sidebar />
+          </div>
+          <div className="ml-[14%] w-full mt-24 p-1">{children}</div>
+        </Provider>
       </body>
     </html>
   );
