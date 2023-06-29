@@ -20,7 +20,7 @@ const sidebar = () => {
       <div className=" overflow-y-auto h-full">
         <div className="flex-col px-3">
           <Link
-            href="/"
+            href="/dashboard"
             className="uppercase flex hover:bg-orange-500 ml-2 py-4 mt-2  mb-1 hover:text-white font-medium text-gray-100 rounded p-2 text-sm group transition-colors items-center"
           >
             Dashboard
@@ -29,7 +29,7 @@ const sidebar = () => {
             href="/profile"
             className=" uppercase flex hover:bg-orange-500 ml-2 py-4 mt-2 mb-1 hover:text-white font-medium text-gray-100 rounded p-2 text-sm group transition-colors items-center"
           >
-            TeamLead
+            Profile
           </Link>
           <Link
             href="#"
@@ -39,9 +39,6 @@ const sidebar = () => {
           </Link>
 
           <div className="border border-gray-300 mt-5"></div>
-          <div className="cursor-pointer py-3 px-3 mb-5 mt-5 hover:bg-blue-100 rounded text-sm text-orange-400 font-normal antialiased tracking-normal">
-            Logout
-          </div>
         </div>
       </div>
     </div>

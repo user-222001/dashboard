@@ -18,7 +18,7 @@ export default function Layout({ children }) {
           <div className="fixed">
             <Sidebar />
           </div>
-          <div className="ml-[14%] w-screen mt-24 p-1">{children}</div>
+          <div className="ml-[14%] w-screen  mt-24 p-1">{children}</div>
         </>
       ) : (
         router.push("/login")

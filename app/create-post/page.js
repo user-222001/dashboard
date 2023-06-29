@@ -63,7 +63,7 @@ function CreatePost() {
     await setDoc(doc(db, "posts", Date.now().toString()), inputs);
   };
   return (
-    <>
+    <div className="">
       <h2
         className="text-[30px] 
         font-extrabold text-blue-500 flex justify-start items-start mb-10"
@@ -129,7 +129,7 @@ rounded-md text-white"
           </button>
           <button
             onClick={() => {
-              router.push("/");
+              router.push("/dashboard");
             }}
             type="button"
             className="bg-red-500 px-10 py-4
@@ -139,7 +139,7 @@ rounded-md text-white"
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 
