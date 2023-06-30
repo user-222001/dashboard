@@ -30,6 +30,7 @@ function CreatePost() {
   useEffect(() => {
     if (user) {
       setInputs((values) => ({ ...values, email: user.email }));
+      setInputs((values) => ({ ...values, id: Date.now().toString() }));
     }
   }, [user]);
 
@@ -62,6 +63,7 @@ function CreatePost() {
 
   const savePost = async () => {
     await setDoc(doc(db, "posts", Date.now().toString()), inputs);
+    router.push("/dashboard");
   };
 
   return (

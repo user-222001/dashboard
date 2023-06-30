@@ -7,14 +7,14 @@ function PostItem({ post, modal = false }) {
   return (
     <>
       {post ? (
-        <div className="card w-96 bg-primary text-primary-content">
+        <div className="card w-full bg-primary text-primary-content">
           <div className="card-body">
             <h2 className="card-title">TITLE: {post.title}</h2>
             <p>DATE: {post.date}</p>
             <p>LOCATION: {post.location}</p>
             <p>ZIP: {post.zip}</p>
             <div className="card-actions justify-end">
-              <button className="btn">Read More</button>
+              {/* <button className="btn">Edit</button> */}
             </div>
           </div>
         </div>

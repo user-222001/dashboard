@@ -12,21 +12,23 @@ import {
   where,
 } from "firebase/firestore";
 import PostItem from "../../components/post/PostItem";
+import { useUserAuth } from "@/components/UserAuthContext";
 
 function Profile() {
+  const { user } = useUserAuth();
   const { data: session } = useSession();
   const [userPost, setUserPost] = useState([]);
   const db = getFirestore(app);
   useEffect(() => {
     getUserPost();
-  }, [session]);
+  }, [user]);
 
   const getUserPost = async () => {
     setUserPost([]);
-    if (session?.user.email) {
+    if (user.email) {
       const q = query(
         collection(db, "posts"),
-        where("email", "==", session?.user.email)
+        where("email", "==", user.email)
       );
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
@@ -72,11 +74,8 @@ function Profile() {
             </div>
           </div>
           <div className="mt-20 text-center  pb-12">
-            <h1 className="text-4xl font-medium text-gray-700">
-              {session ? session?.user?.name : "login"}
-            </h1>
             <p className="font-light text-gray-600 mt-3">
-              {session ? session?.user?.email : "login"}
+              {user ? user.email : "login"}
             </p>
           </div>
           <div
@@ -85,7 +84,7 @@ function Profile() {
   gap-5 mt-5 px-10"
           >
             {userPost &&
-              userPost?.map((item, index) => (
+              userPost.map((item, index) => (
                 <div key={index}>
                   <PostItem post={item} modal={true} />
                   <button

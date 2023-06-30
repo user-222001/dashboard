@@ -1,27 +1,54 @@
 import React, { useEffect, useState } from "react";
 import PostItem from "./PostItem";
-import PostModal from "./PostModal";
+import app from "../../components/utilis/firebase.config";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
 
-function Posts({ posts }) {
-  const [post, setPost] = useState();
+function Posts() {
+  const db = getFirestore(app);
+  const [posts, setPosts] = useState([]);
 
+  useEffect(() => {
+    getPost();
+  }, []);
+
+  const getPost = async () => {
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    querySnapshot.forEach((doc) => {
+      let data = doc.data();
+      data.id = doc.id;
+      setPosts((posts) => [...posts, data]);
+    });
+  };
+
+  const onDeletePost = async (id) => {
+    await deleteDoc(doc(db, "posts", id));
+    window.location.reload();
+  };
   return (
     <div>
-      <PostModal post={post} />
       <div
         className="grid grid-cols-1 
-    sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2
+    sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3
     gap-5 mt-5 px-10"
       >
         {posts.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => {
-              window.my_modal_1.showModal();
-              setPost(item);
-            }}
-          >
+          <div key={index}>
             <PostItem post={item} modal={true} />
+            <button
+              className="bg-red-400 w-full p-1 mt-1
+rounded-md text-white"
+              onClick={() => onDeletePost(item.id)}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
