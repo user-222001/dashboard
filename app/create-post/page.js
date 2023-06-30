@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import app from "../../components/utilis/firebase.config";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-//..
+import { useUserAuth } from "../../components/UserAuthContext";
+
 function CreatePost() {
   const router = useRouter();
+  const { user } = useUserAuth();
 
   // useEffect(() => {
   //   if (!session) {
@@ -24,13 +26,12 @@ function CreatePost() {
   const { data: session, status } = useSession();
   const db = getFirestore(app);
   const storage = getStorage(app);
+
   useEffect(() => {
-    if (session) {
-      setInputs((values) => ({ ...values, userName: session.user?.name }));
-      setInputs((values) => ({ ...values, userImage: session.user?.image }));
-      setInputs((values) => ({ ...values, email: session.user?.email }));
+    if (user) {
+      setInputs((values) => ({ ...values, email: user.email }));
     }
-  }, [session]);
+  }, [user]);
 
   useEffect(() => {
     if (submit == true) {
@@ -62,6 +63,7 @@ function CreatePost() {
   const savePost = async () => {
     await setDoc(doc(db, "posts", Date.now().toString()), inputs);
   };
+
   return (
     <div className="">
       <h2
