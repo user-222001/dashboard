@@ -19,6 +19,7 @@ function Todo() {
 
   const { user, presentid } = useUserAuth();
 
+  //get data posts
   const [userPost, setUserPost] = useState([]);
   const db = getFirestore(app);
   useEffect(() => {
@@ -41,11 +42,12 @@ function Todo() {
     }
   };
 
+  //delete posts
   const onDeletePost = async (id) => {
     await deleteDoc(doc(db, "posts", id));
     window.location.reload();
   };
-
+  //edit posts
   const editPost = async (id) => {
     presentid(id);
     router.push("/edit");
