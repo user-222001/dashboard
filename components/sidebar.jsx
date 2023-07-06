@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const sidebar = () => {
   return (
-    <div className="text-slate-100 flex-col border-r mt-[5rem] pr-5 pl-5 w-full bg-slate-900 h-screen -z-50 ">
+    <div className="text-slate-100 flex-col border-r mt-[5rem] pr-5 pl-5  fixed left-0 bg-slate-900 h-screen ">
       <div className="flex ml-3 py-8">
         <div className="flex-col text-slate-100">
           <div className="items-center cursor-pointer px-2  mb-1 text-sm font-medium  hover:underline">

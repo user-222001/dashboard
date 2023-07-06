@@ -1,61 +1,47 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useUserAuth } from "@/components/UserAuthContext";
 import app from "../../components/utilis/firebase.config";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { useUserAuth } from "../../components/UserAuthContext";
+import { doc, getFirestore, getDoc, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import Provider from "@/components/Provider/Provider";
 
-function CreatePost() {
+function EditPost() {
   const router = useRouter();
-  const { user } = useUserAuth();
+  const database = getFirestore(app);
 
-  //inputs section
-  const [inputs, setInputs] = useState({});
-  const [file, setFile] = useState();
-  const [submit, setSubmit] = useState(false);
+  //user and coming id of edit todo
+  const { user, postid } = useUserAuth();
+  console.log(postid);
 
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-
+  //user posts data filter by id
+  const [userPost, setUserPost] = useState([]);
   useEffect(() => {
-    if (user) {
-      setInputs((values) => ({ ...values, email: user.email }));
-      setInputs((values) => ({ ...values, id: Date.now().toString() }));
-    }
+    getUserPost();
   }, [user]);
 
-  useEffect(() => {
-    if (submit == true) {
-      savePost();
-    }
-  }, [submit]);
-
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+  const getUserPost = async () => {
+    const docRef = doc(database, "posts", postid);
+    const docSnap = await getDoc(docRef);
+    setUserPost(docSnap.data());
   };
+  console.log(userPost);
 
-  //data submit to firebase
+  //update post
+  const [titleel, settitleel] = useState("");
+  const [locationel, setlocationel] = useState("");
+  const [zipel, setzipel] = useState("");
+  const [descel, setdescel] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const storageRef = ref(storage, "arun-images/" + file?.name);
-    uploadBytes(storageRef, file)
-      .then((snapshot) => {
-        console.log("Upload a file!");
-      })
-      .then((resp) => {
-        getDownloadURL(storageRef).then(async (url) => {
-          setInputs((values) => ({ ...values, image: url }));
-          setSubmit(true);
-        });
-      });
-  };
-
-  const savePost = async () => {
-    await setDoc(doc(db, "posts", Date.now().toString()), inputs);
+    const updateData = doc(database, "posts", postid);
+    await updateDoc(updateData, {
+      title: titleel,
+      location: locationel,
+      zip: zipel,
+      desc: descel,
+    });
     router.push("/dashboard");
   };
 
@@ -65,7 +51,7 @@ function CreatePost() {
         className="text-[30px] 
         font-extrabold text-blue-500 flex justify-start items-start mb-10"
       >
-        Add Todo
+        edit Todo
       </h2>
       <form
         onSubmit={handleSubmit}
@@ -77,10 +63,12 @@ function CreatePost() {
             <input
               type="text"
               name="title"
-              placeholder="Title"
+              id="title"
+              placeholder={userPost.title}
               required
               className="input input-bordered"
-              onChange={handleChange}
+              // value={userPost.title}
+              onChange={(e) => settitleel(e.target.value)}
             />
           </label>
 
@@ -89,31 +77,32 @@ function CreatePost() {
             <input
               type="text"
               name="desc"
-              placeholder="desc"
+              placeholder={userPost.location}
               required
               className="input input-bordered"
-              onChange={handleChange}
+              onChange={(e) => setdescel(e.target.value)}
             />
           </label>
+
           <label className="input-group">
             <span>LOCATION</span>
             <input
-              placeholder="Location"
               name="location"
               required
+              placeholder={userPost.location}
               className="input input-bordered"
-              onChange={handleChange}
+              onChange={(e) => setlocationel(e.target.value)}
             />
           </label>
           <label className="input-group">
             <span>ZIP</span>
             <input
               type="text"
-              placeholder="Zip"
+              placeholder={userPost.zip}
               name="zip"
               required
               className="input input-bordered"
-              onChange={handleChange}
+              onChange={(e) => setzipel(e.target.value)}
             />
           </label>
         </div>
@@ -141,4 +130,4 @@ rounded-md text-white"
   );
 }
 
-export default Provider(CreatePost);
+export default Provider(EditPost);

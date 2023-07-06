@@ -1,12 +1,14 @@
-import Content from "@/components/content";
+"use client";
 import React from "react";
+import Todo from "../../components/todocards/page";
+import Provider from "@/components/Provider/Provider";
 
 const page = () => {
   return (
     <div>
-      <Content />
+      <Todo />
     </div>
   );
 };
 
-export default page;
+export default Provider(page);

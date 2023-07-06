@@ -2,7 +2,6 @@ import "./globals.css";
 // import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
-import Provider from "@/components/Provider/Provider";
 import { UserAuthContextProvider } from "../components/UserAuthContext";
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -16,9 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html data-theme="light" lang="en">
       <body className="flex flex-row">
-        <UserAuthContextProvider>
-          <Provider>{children}</Provider>
-        </UserAuthContextProvider>
+        <UserAuthContextProvider>{children}</UserAuthContextProvider>
       </body>
     </html>
   );

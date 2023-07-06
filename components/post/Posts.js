@@ -7,11 +7,12 @@ import {
   doc,
   getDocs,
   getFirestore,
-  query,
-  where,
 } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 function Posts() {
+  const router = useRouter();
+  //posts data get
   const db = getFirestore(app);
   const [posts, setPosts] = useState([]);
 
@@ -27,11 +28,17 @@ function Posts() {
       setPosts((posts) => [...posts, data]);
     });
   };
-
+  //posts delete
   const onDeletePost = async (id) => {
     await deleteDoc(doc(db, "posts", id));
     window.location.reload();
   };
+  //posts edit
+  const editPost = async (id) => {
+    console.log(id);
+    router.push("/edit", id);
+  };
+
   return (
     <div>
       <div
@@ -41,13 +48,20 @@ function Posts() {
       >
         {posts.map((item, index) => (
           <div key={index}>
-            <PostItem post={item} modal={true} />
+            <PostItem post={item} />
             <button
               className="bg-red-400 w-full p-1 mt-1
 rounded-md text-white"
               onClick={() => onDeletePost(item.id)}
             >
               Delete
+            </button>
+            <button
+              className="bg-green-600 w-full p-1 mt-1
+rounded-md text-white"
+              onClick={() => editPost(item.id)}
+            >
+              Edit
             </button>
           </div>
         ))}

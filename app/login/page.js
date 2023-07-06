@@ -25,7 +25,7 @@ const page = () => {
   return (
     <>
       {user ? (
-        <a href="/dashboard">go to dashboard</a>
+        router.push("/dashboard")
       ) : (
         <div className="flex h-screen w-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -33,6 +33,7 @@ const page = () => {
               Sign in to your account
             </h2>
           </div>
+          {error && <p className="text-red-600">{error}</p>}
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" onSubmit={handleSubmit}>

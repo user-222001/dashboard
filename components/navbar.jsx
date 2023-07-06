@@ -1,14 +1,11 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-// import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "./UserAuthContext";
 
 const Navbar = () => {
-  // const { data: session } = useSession();
-  // console.log(session);
-  const { user, logOut, logIn } = useUserAuth();
+  const { user, logOut } = useUserAuth();
 
   const router = useRouter();
 
@@ -24,7 +21,7 @@ const Navbar = () => {
       <nav className="header-links contents font-semibold text-base lg:text-lg">
         <ul className="flex items-center ml-4 xl:ml-8 mr-auto">
           <li className="p-3 xl:p-6 active">
-            <Link href="/dashboard" className="">
+            <Link href="/dashboard">
               <span>Home</span>
             </Link>
           </li>
@@ -41,12 +38,6 @@ const Navbar = () => {
 
         {user ? (
           <>
-            <button
-              onClick={() => router.push("/profile")}
-              className="mr-1 bg-black hover:bg-gray-700 text-white font-bold px-4 xl:px-6 py-2 xl:py-3 rounded"
-            >
-              Profile
-            </button>
             <button
               onClick={() => logOut()}
               className="bg-red-400 hover:bg-gray-700 text-white font-bold px-4 xl:px-6 py-2 xl:py-3 rounded"

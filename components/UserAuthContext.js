@@ -1,7 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import {
-  // signInWithRedirect,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -10,37 +9,12 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../components/utilis/firebase.config";
-// import { collection, setDoc, getDocs, doc, getDoc } from "firebase/firestore";
 
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
   console.log(user);
-  // const collectRef = collection(database, "users");
-  // // // const q = query(collectRef, where(id, "==", user.uid));
-  // // // console.log(user.uid);
-
-  //push to firebase
-  async function handleSubmit(
-    fullname,
-    companyName,
-    companyAddress,
-    skill,
-    permanentAddress,
-    about
-  ) {
-    const docRef = await setDoc(doc(collectRef, user.uid), {
-      fullname: fullname,
-      companyName: companyName,
-      companyAddress: companyAddress,
-      skill: skill,
-      permanentAddress: permanentAddress,
-      about: about,
-    });
-
-    console.log("Document written with ID: ", docRef.id);
-  }
 
   // .................................
   function logIn(email, password) {
@@ -52,6 +26,13 @@ export function UserAuthContextProvider({ children }) {
   function logOut() {
     return signOut(auth);
   }
+
+  const [postid, setpostid] = useState();
+
+  function presentid(id) {
+    return setpostid(id);
+  }
+  // console.log(userid);
 
   const googleProvider = new GoogleAuthProvider();
   googleProvider.setCustomParameters({
@@ -78,12 +59,12 @@ export function UserAuthContextProvider({ children }) {
   return (
     <userAuthContext.Provider
       value={{
-        handleSubmit,
         user,
         logIn,
         signUp,
         logOut,
-        googleSignIn,
+        presentid,
+        postid,
       }}
     >
       {children}
