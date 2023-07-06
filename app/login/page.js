@@ -1,13 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { useUserAuth } from "../../components/UserAuthContext";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logIn, user } = useUserAuth();
-  const router = useRouter();
   const [error, setError] = useState("");
 
   // //.......sign login
@@ -25,8 +24,7 @@ const page = () => {
   return (
     <>
       {user ? (
-        // router.push("/dashboard")
-        <p>go to dashboard</p>
+        redirect("./dashboard")
       ) : (
         <div className="flex h-screen w-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
