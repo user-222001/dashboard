@@ -29,13 +29,7 @@ const sidebar = () => {
             href="./create-post"
             className=" uppercase flex hover:bg-orange-500 ml-2 py-4 mt-2 mb-1 hover:text-white font-medium text-gray-100 rounded p-2 text-sm group transition-colors items-center"
           >
-            Profile
-          </Link>
-          <Link
-            href="./"
-            className="uppercase flex hover:bg-orange-500 ml-2 py-4 mt-2 mb-1 hover:text-white font-medium text-gray-100 rounded p-2 text-sm group transition-colors items-center"
-          >
-            Admin
+            ADD TODO
           </Link>
 
           <div className="border border-gray-300 mt-5"></div>

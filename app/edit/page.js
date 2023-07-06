@@ -5,6 +5,8 @@ import app from "../../components/utilis/firebase.config";
 import { doc, getFirestore, getDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Provider from "@/components/Provider/Provider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function EditPost() {
   const router = useRouter();
@@ -42,11 +44,18 @@ function EditPost() {
       zip: zipel,
       desc: descel,
     });
-    router.push("/dashboard");
+    toast("Edit successfully");
+
+    //redirect
+    const interval = setInterval(() => {
+      router.push("/dashboard");
+    }, 2000);
+    return () => clearInterval(interval);
   };
 
   return (
     <div>
+      <ToastContainer />
       <h2
         className="text-[30px] 
         font-extrabold text-blue-500 flex justify-start items-start mb-10"

@@ -6,6 +6,8 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useUserAuth } from "../../components/UserAuthContext";
 import Provider from "@/components/Provider/Provider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreatePost() {
   const router = useRouter();
@@ -56,11 +58,19 @@ function CreatePost() {
 
   const savePost = async () => {
     await setDoc(doc(db, "posts", Date.now().toString()), inputs);
-    router.push("/dashboard");
+    toast("Posted successfully");
+
+    //redirect
+    const interval = setInterval(() => {
+      router.push("/dashboard");
+    }, 2000);
+    return () => clearInterval(interval);
   };
 
   return (
     <div>
+      <ToastContainer />
+
       <h2
         className="text-[30px] 
         font-extrabold text-blue-500 flex justify-start items-start mb-10"
