@@ -26,7 +26,7 @@ const sidebar = () => {
             Dashboard
           </Link>
           <Link
-            href="./"
+            href="./create-post"
             className=" uppercase flex hover:bg-orange-500 ml-2 py-4 mt-2 mb-1 hover:text-white font-medium text-gray-100 rounded p-2 text-sm group transition-colors items-center"
           >
             Profile

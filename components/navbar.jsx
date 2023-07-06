@@ -21,7 +21,7 @@ const Navbar = () => {
       <nav className="header-links contents font-semibold text-base lg:text-lg">
         <ul className="flex items-center ml-4 xl:ml-8 mr-auto">
           <li className="p-3 xl:p-6 active">
-            <Link href="/dashboard">
+            <Link href="./dashboard">
               <span>Home</span>
             </Link>
           </li>

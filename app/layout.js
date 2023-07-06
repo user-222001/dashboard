@@ -1,10 +1,6 @@
 import "./globals.css";
-// import { Inter } from "next/font/google";
-import Navbar from "@/components/navbar";
-import Sidebar from "@/components/sidebar";
-import { UserAuthContextProvider } from "../components/UserAuthContext";
 
-// const inter = Inter({ subsets: ["latin"] });
+import { UserAuthContextProvider } from "../components/UserAuthContext";
 
 export const metadata = {
   title: "Create Next App",
