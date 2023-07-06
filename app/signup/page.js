@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useUserAuth } from "../../components/UserAuthContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -91,12 +92,12 @@ const Signup = () => {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Already have account ?
-          <a
+          <Link
             href="/login"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             click here
-          </a>
+          </Link>
         </p>
       </div>
     </div>

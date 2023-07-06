@@ -8,7 +8,7 @@ export default function Provider(Component) {
     const { user } = useUserAuth();
 
     useEffect(() => {
-      !user ? router.push("/") : null;
+      !user ? router.push("./") : null;
     }, [user, router]);
 
     return <Component {...props} />;

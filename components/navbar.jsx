@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <header className="bg-white shadow-lg h-[5rem]  md:flex fixed top-0 w-full z-50">
       <img
-        onClick={() => router.push("/")}
+        onClick={() => router.push("./")}
         className="cursor-pointer w-44 object-contain border flex-shrink-0 flex items-center justify-center px-4 lg:px-6 xl:px-8"
         src="https://streamsss.com/wp-content/themes/streamsss/assets/images/logo/logo-head.png"
         alt=""
