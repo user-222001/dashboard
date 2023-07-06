@@ -25,7 +25,8 @@ const page = () => {
   return (
     <>
       {user ? (
-        router.push("/dashboard")
+        // router.push("/dashboard")
+        <p>go to dashboard</p>
       ) : (
         <div className="flex h-screen w-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">

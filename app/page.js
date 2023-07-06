@@ -6,6 +6,14 @@ import { useRouter } from "next/navigation";
 const page = () => {
   const router = useRouter();
   const { user } = useUserAuth();
-  return <div>{user ? router.push("/dashboard") : <Login />}</div>;
+  return (
+    <div>
+      {user ? ( // router.push("/dashboard")
+        <p>go to dashboard</p>
+      ) : (
+        <Login />
+      )}
+    </div>
+  );
 };
 export default page;
