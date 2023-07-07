@@ -14,7 +14,7 @@ const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
-  console.log(user);
+  // console.log(user);
 
   // .................................
   function logIn(email, password) {
@@ -29,10 +29,13 @@ export function UserAuthContextProvider({ children }) {
 
   const [postid, setpostid] = useState();
 
-  function presentid(id) {
-    return setpostid(id);
-  }
-  // console.log(userid);
+  const presentid = (id, title) => {
+    return setpostid({
+      id: id,
+      title: title,
+    });
+  };
+  console.log(postid);
 
   const googleProvider = new GoogleAuthProvider();
   googleProvider.setCustomParameters({

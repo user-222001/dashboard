@@ -48,8 +48,8 @@ function Todo() {
     window.location.reload();
   };
   //edit posts
-  const editPost = async (id) => {
-    presentid(id);
+  const editPost = async (id, title) => {
+    presentid(id, title);
     router.push("/edit");
   };
 
@@ -63,7 +63,7 @@ function Todo() {
               <button
                 className="bg-lime-600 w-full p-1 mt-1
       rounded-md text-white"
-                onClick={() => editPost(item.id)}
+                onClick={() => editPost(item.id, item.title)}
               >
                 edit
               </button>

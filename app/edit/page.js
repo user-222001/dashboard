@@ -14,7 +14,8 @@ function EditPost() {
 
   //user and coming id of edit todo
   const { user, postid } = useUserAuth();
-  console.log(postid);
+  // console.log(postid);
+  // console.log(title);
 
   //user posts data filter by id
   const [userPost, setUserPost] = useState([]);
@@ -27,7 +28,7 @@ function EditPost() {
     const docSnap = await getDoc(docRef);
     setUserPost(docSnap.data());
   };
-  console.log(userPost);
+  // console.log(userPost);
 
   //update post
   const [titleel, settitleel] = useState("");
