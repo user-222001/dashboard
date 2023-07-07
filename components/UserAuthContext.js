@@ -29,10 +29,13 @@ export function UserAuthContextProvider({ children }) {
 
   const [postid, setpostid] = useState();
 
-  const presentid = (id, title) => {
+  const presentid = (id, title, location, zip, desc) => {
     return setpostid({
       id: id,
       title: title,
+      location: location,
+      zip: zip,
+      desc: desc,
     });
   };
   console.log(postid);

@@ -13,22 +13,8 @@ function EditPost() {
   const database = getFirestore(app);
 
   //user and coming id of edit todo
-  const { user, postid } = useUserAuth();
-  // console.log(postid);
-  // console.log(title);
-
-  //user posts data filter by id
-  const [userPost, setUserPost] = useState([]);
-  useEffect(() => {
-    getUserPost();
-  }, [user]);
-
-  const getUserPost = async () => {
-    const docRef = doc(database, "posts", postid);
-    const docSnap = await getDoc(docRef);
-    setUserPost(docSnap.data());
-  };
-  // console.log(userPost);
+  const { postid } = useUserAuth();
+  console.log(postid);
 
   //update post
   const [titleel, settitleel] = useState("");
@@ -36,22 +22,25 @@ function EditPost() {
   const [zipel, setzipel] = useState("");
   const [descel, setdescel] = useState("");
 
+  useEffect(() => {
+    settitleel(postid.title);
+    setlocationel(postid.location);
+    setzipel(postid.zip);
+    setdescel(postid.desc);
+  }, []);
+
   const handleSubmit = async (e) => {
+    toast("Edit successfully");
     e.preventDefault();
-    const updateData = doc(database, "posts", postid);
+    const updateData = doc(database, "posts", postid.id);
     await updateDoc(updateData, {
       title: titleel,
       location: locationel,
       zip: zipel,
       desc: descel,
     });
-    toast("Edit successfully");
-
     //redirect
-    const interval = setInterval(() => {
-      router.push("/dashboard");
-    }, 2000);
-    return () => clearInterval(interval);
+    router.push("/dashboard");
   };
 
   return (
@@ -73,11 +62,9 @@ function EditPost() {
             <input
               type="text"
               name="title"
-              id="title"
-              placeholder={userPost.title}
               required
               className="input input-bordered"
-              // value={userPost.title}
+              value={titleel}
               onChange={(e) => settitleel(e.target.value)}
             />
           </label>
@@ -87,7 +74,7 @@ function EditPost() {
             <input
               type="text"
               name="desc"
-              placeholder={userPost.location}
+              value={descel}
               required
               className="input input-bordered"
               onChange={(e) => setdescel(e.target.value)}
@@ -99,7 +86,7 @@ function EditPost() {
             <input
               name="location"
               required
-              placeholder={userPost.location}
+              value={locationel}
               className="input input-bordered"
               onChange={(e) => setlocationel(e.target.value)}
             />
@@ -108,7 +95,7 @@ function EditPost() {
             <span>ZIP</span>
             <input
               type="text"
-              placeholder={userPost.zip}
+              value={zipel}
               name="zip"
               required
               className="input input-bordered"
